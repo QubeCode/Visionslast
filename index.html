@@ -58,14 +58,13 @@
 
         header {
             display: grid;
-            grid-template-columns: 1.3fr 1fr;
-            gap: 40px;
-            align-items: center;
+            gap: 28px;
             padding: 40px 0 60px;
         }
 
         .hero-copy {
-            padding-right: 10px;
+            padding: 0 12px;
+            text-align: center;
         }
 
         .eyebrow {
@@ -88,9 +87,11 @@
 
         .subtitle {
             font-size: 1.08rem;
-            max-width: 42rem;
+            width: min(88rem, 100%);
+            max-width: 100%;
             color: var(--muted);
-            margin-bottom: 2rem;
+            margin: 0 auto 2rem;
+            white-space: nowrap;
         }
 
         .slogan-text {
@@ -171,6 +172,7 @@
         .cta-group {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 16px;
             margin-top: 2rem;
         }
@@ -207,19 +209,36 @@
         }
 
         .artist-image {
-            border-radius: 24px;
+            position: relative;
+            width: 100%;
+            min-height: 420px;
+            border-radius: 32px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            border: 1px solid rgba(79, 243, 255, 0.22);
-            background: linear-gradient(180deg, rgba(10, 15, 34, 0.98) 0%, rgba(4, 7, 15, 0.95) 100%);
+            background: linear-gradient(180deg, rgba(5, 7, 15, 0.9), rgba(10, 14, 28, 0.95));
         }
 
-        .artist-image img {
-            width: 100%;
-            display: block;
-            aspect-ratio: 4 / 5;
-            object-fit: cover;
-            filter: saturate(1.05) contrast(1.05);
+        .artist-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(79, 243, 255, 0.16), transparent 28%),
+                        radial-gradient(circle at bottom right, rgba(198, 93, 255, 0.12), transparent 32%);
+            pointer-events: none;
+        }
+
+        .artist-image .image-caption {
+            position: absolute;
+            left: 50%;
+            bottom: 22px;
+            transform: translateX(-50%);
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.45);
+            color: var(--text);
+            backdrop-filter: blur(10px);
+            font-size: 0.95rem;
+            z-index: 1;
         }
 
         .section {
@@ -502,19 +521,16 @@
                 <div class="bubble bubble-3"></div>
             </div>
 
+        
+
             <div class="hero-copy reveal">
                 <p class="eyebrow reveal">Artiste Visuel & Créateur</p>
                 <h1 class="reveal">Je transforme les idées en expériences.</h1>
                 <p class="subtitle reveal">Sites web, automatisations IA et contenus visuels pour indépendants, artistes et petites entreprises.</p>
                 <div class="cta-group reveal">
                     <a class="button" href="contact.html" rel="noreferrer">Discutons de votre projet</a>
-                    <a class="button-alt" href="mailto:Quincy.Bordey@gmail.com" target="_blank" rel="noreferrer">Envoyer un mail</a>
+                    <a class="button-alt" href="mailto:quincy.bordey@gmail.com" target="_blank" rel="noreferrer">Envoyer un mail</a>
                 </div>
-            </div>
-
-            <div class="artist-image reveal">
-                <img src="visionslast.png" alt="Portrait artistique" />
-                <div class="image-caption">Un regard, une vision</div>
             </div>
         </header>
 
@@ -576,14 +592,14 @@
             <article class="card reveal">
                 <h2>Contact</h2>
                 <p>Pour toute demande, écris directement à :</p>
-                <p><a href="mailto:Quincy.Bordey@gmail.com">Quincy.Bordey@gmail.com</a></p>
+                <p><a href="mailto:quincy.bordey@gmail.com">quincy.bordey@gmail.com</a></p>
                 <p>Ou utilise la page de contact dédiée pour m’écrire directement depuis le site.</p>
                 <a class="button" href="contact.html">Page de contact</a>
             </article>
         </section>
 
         <footer>
-            <p>Suivez-moi sur <a href="https://www.instagram.com/qubelevrai/" target="_blank" rel="noreferrer">@qubelevrai</a> — Pour collaborations : <a href="mailto:Quincy.Bordey@gmail.com">Quincy.Bordey@gmail.com</a></p>
+            <p>Suivez-moi sur <a href="https://www.instagram.com/qubelevrai/" target="_blank" rel="noreferrer">@qubelevrai</a> — Pour collaborations : <a href="mailto:quincy.bordey@gmail.com">quincy.bordey@gmail.com</a></p>
         </footer>
     </div>
 
