@@ -87,11 +87,12 @@
 
         .subtitle {
             font-size: 1.08rem;
-            width: min(88rem, 100%);
+            width: min(72rem, 100%);
             max-width: 100%;
             color: var(--muted);
             margin: 0 auto 2rem;
             white-space: nowrap;
+            overflow-wrap: normal;
         }
 
         .slogan-text {
@@ -489,20 +490,42 @@
         @media (max-width: 860px) {
             header {
                 grid-template-columns: 1fr;
+                justify-items: center;
             }
 
             .artist-image {
                 order: -1;
+                width: 100%;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .banner-photos {
+                grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 520px) {
+        @media (max-width: 720px) {
             .page {
                 padding: 24px 18px 48px;
             }
 
             h1 {
                 font-size: 2.8rem;
+            }
+
+            .subtitle {
+                white-space: normal;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .banner-photos {
+                grid-template-columns: 1fr;
             }
 
             .button,
