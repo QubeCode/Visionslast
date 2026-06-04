@@ -166,7 +166,7 @@
         </header>
 
         <div class="card">
-            <form id="contact-form" action="mailto:quincy.bordey@gmail.com" method="post" enctype="text/plain">
+            <form id="contact-form" action="https://formspree.io/f/maqznqjg" method="POST">
                 <label>
                     Nom
                     <input type="text" name="Nom" placeholder="Ton nom" required />
@@ -198,10 +198,11 @@
 
         if (contactForm) {
             contactForm.addEventListener('submit', (event) => {
-                alert('Merci de m\'avoir partagé ton idée! Je reviens vers toi au plus vite.');
-                if (thankYouMessage) {
-                    thankYouMessage.style.display = 'block';
-                }
+                setTimeout(() => {
+                    if (thankYouMessage) {
+                        thankYouMessage.style.display = 'block';
+                    }
+                }, 500);
             });
         }
     </script>
