@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quincy | Expériences numériques</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap');
+
+        :root {
+            --bg: #05070f;
+            --surface: rgba(11, 15, 28, 0.92);
+            --surface-strong: rgba(255, 255, 255, 0.07);
+            --text: #e7f7ff;
+            --muted: #8aa2c1;
+            --accent: #4ff3ff;
+            --accent2: #c65dff;
+            --border: rgba(79, 243, 255, 0.16);
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top left, #11214e 0%, transparent 28%),
+                        radial-gradient(circle at bottom right, #0c283f 0%, transparent 25%),
+                        linear-gradient(180deg, #05070f 0%, #070b16 100%);
+            color: var(--text);
+            line-height: 1.75;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle at 20% 20%, rgba(79, 243, 255, 0.14), transparent 12%),
+                              radial-gradient(circle at 85% 18%, rgba(198, 93, 255, 0.12), transparent 12%),
+                              radial-gradient(circle at 45% 80%, rgba(79, 243, 255, 0.08), transparent 14%);
+        }
+
+        .page {
+            position: relative;
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        header {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 40px 0 60px;
+        }
+
+        .hero-copy {
+            padding-right: 10px;
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            color: var(--accent);
+            font-size: 0.82rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Orbitron', 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: clamp(3rem, 4vw, 5rem);
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 18px rgba(79, 243, 255, 0.28);
+        }
+
+        .subtitle {
+            font-size: 1.08rem;
+            max-width: 42rem;
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        .slogan-text {
+            font-size: 1.1rem;
+            max-width: 44rem;
+            color: #d8f7ff;
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+            margin-top: 18px;
+            padding: 22px 24px;
+            border-left: 3px solid var(--accent);
+            background: rgba(79, 243, 255, 0.05);
+            box-shadow: 0 18px 40px rgba(79, 243, 255, 0.08);
+            border-radius: 20px;
+        }
+
+        header {
+            position: relative;
+        }
+
+        .hero-bubbles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-bubbles .bubble {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(79, 243, 255, 0.18);
+            box-shadow: 0 0 40px rgba(79, 243, 255, 0.12);
+            animation: float 10s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        .bubble-1 {
+            width: 120px;
+            height: 120px;
+            top: 8%;
+            right: 18%;
+            animation-delay: 0s;
+        }
+
+        .bubble-2 {
+            width: 90px;
+            height: 90px;
+            top: 45%;
+            left: 10%;
+            animation-delay: 1.4s;
+        }
+
+        .bubble-3 {
+            width: 140px;
+            height: 140px;
+            bottom: 4%;
+            right: 12%;
+            animation-delay: 0.8s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.95; }
+            50% { transform: translateY(-16px) scale(1.05); opacity: 0.7; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 2rem;
+        }
+
+        .button,
+        .button-alt {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 180px;
+            padding: 14px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+        }
+
+        .button {
+            background: linear-gradient(135deg, rgba(79,243,255,0.96) 0%, rgba(198,93,255,0.95) 100%);
+            color: #05070f;
+            box-shadow: 0 18px 40px rgba(79, 243, 255, 0.22);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 48px rgba(79, 243, 255, 0.28);
+        }
+
+        .button-alt {
+            border: 1px solid rgba(79, 243, 255, 0.18);
+            color: var(--text);
+            background: rgba(18, 21, 45, 0.72);
+            backdrop-filter: blur(8px);
+        }
+
+        .artist-image {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(79, 243, 255, 0.22);
+            background: linear-gradient(180deg, rgba(10, 15, 34, 0.98) 0%, rgba(4, 7, 15, 0.95) 100%);
+        }
+
+        .artist-image img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            filter: saturate(1.05) contrast(1.05);
+        }
+
+        .section {
+            margin-top: 50px;
+            display: grid;
+            gap: 36px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            padding: 26px;
+            border-radius: 20px;
+            background: rgba(16, 24, 45, 0.96);
+            border: 1px solid rgba(79, 243, 255, 0.12);
+        }
+
+        .service-card h3 {
+            margin-bottom: 14px;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .service-card p {
+            color: var(--muted);
+            font-size: 0.98rem;
+            margin: 0;
+        }
+
+        .step-list {
+            display: grid;
+            gap: 16px;
+            padding-left: 0;
+            list-style: none;
+            counter-reset: step;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 52px;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .step-list li::before {
+            content: counter(step, decimal-leading-zero);
+            counter-increment: step;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: rgba(79, 243, 255, 0.16);
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .card {
+            padding: 30px;
+            background: rgba(10, 14, 28, 0.88);
+            border: 1px solid rgba(79, 243, 255, 0.12);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        #banner .card {
+            position: relative;
+            padding: 44px 42px;
+            background: radial-gradient(circle at top left, rgba(79, 243, 255, 0.28), transparent 35%),
+                        linear-gradient(135deg, rgba(13, 23, 56, 0.94), rgba(37, 13, 70, 0.94));
+            border-color: rgba(79, 243, 255, 0.28);
+            box-shadow: inset 0 0 120px rgba(79, 243, 255, 0.08), var(--shadow);
+            backdrop-filter: blur(18px);
+            border-radius: 32px;
+            overflow: hidden;
+        }
+
+        #banner .card::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: rgba(79, 243, 255, 0.12);
+            filter: blur(32px);
+            pointer-events: none;
+        }
+
+        #banner .card::after {
+            content: '';
+            position: absolute;
+            left: -40px;
+            bottom: -20px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 1px solid rgba(198, 93, 255, 0.22);
+            box-shadow: 0 0 90px rgba(198, 93, 255, 0.12);
+            pointer-events: none;
+        }
+
+        .banner-visual {
+            font-size: clamp(1.9rem, 2.7vw, 2.8rem);
+            line-height: 1.05;
+            color: #e7fbff;
+            letter-spacing: -0.04em;
+            max-width: 13ch;
+            margin: 0 0 18px;
+            text-shadow: 0 0 24px rgba(79, 243, 255, 0.35);
+        }
+
+        .banner-photos {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .banner-photo {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            height: 0;
+            padding-bottom: 75%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(79, 243, 255, 0.14);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+        }
+
+        .banner-photo img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.45s ease;
+        }
+
+        .banner-photo:hover img {
+            transform: scale(1.05);
+        }
+
+        .banner-support {
+            font-size: 1rem;
+            color: rgba(231, 247, 255, 0.92);
+            max-width: 44rem;
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .banner-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(79, 243, 255, 0.18);
+            background: rgba(79, 243, 255, 0.08);
+            color: var(--accent);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        .hero-copy h1 {
+            animation: glow 5s ease-in-out infinite alternate;
+        }
+
+        .banner-photo {
+            animation: float 9s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 18px rgba(79, 243, 255, 0.28); }
+            to { text-shadow: 0 0 34px rgba(198, 93, 255, 0.45); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateY(0); box-shadow: 0 0 18px rgba(79, 243, 255, 0.18); }
+            50% { transform: translateY(-2px); box-shadow: 0 0 28px rgba(79, 243, 255, 0.26); }
+        }
+
+        .card h2 {
+            margin-bottom: 16px;
+            font-size: 1.8rem;
+            color: var(--text);
+        }
+
+        .card p,
+        .card li {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .card ul {
+            margin-top: 20px;
+            list-style: none;
+            padding-left: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .card li::before {
+            content: "•";
+            color: var(--accent);
+            display: inline-block;
+            width: 1.2em;
+        }
+
+        .image-caption {
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        a:hover {
+            color: var(--accent2);
+        }
+
+        @media (max-width: 860px) {
+            header {
+                grid-template-columns: 1fr;
+            }
+
+            .artist-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .page {
+                padding: 24px 18px 48px;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            .button,
+            .button-alt {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <div class="hero-bubbles">
+                <div class="bubble bubble-1"></div>
+                <div class="bubble bubble-2"></div>
+                <div class="bubble bubble-3"></div>
+            </div>
+
+            <div class="hero-copy reveal">
+                <p class="eyebrow reveal">Artiste Visuel & Créateur</p>
+                <h1 class="reveal">Je transforme les idées en expériences.</h1>
+                <p class="subtitle reveal">Sites web, automatisations IA et contenus visuels pour indépendants, artistes et petites entreprises.</p>
+                <div class="cta-group reveal">
+                    <a class="button" href="contact.html" rel="noreferrer">Discutons de votre projet</a>
+                    <a class="button-alt" href="mailto:Quincy.Bordey@gmail.com" target="_blank" rel="noreferrer">Envoyer un mail</a>
+                </div>
+            </div>
+
+            <div class="artist-image reveal">
+                <img src="visionslast.png" alt="Portrait artistique" />
+                <div class="image-caption">Un regard, une vision</div>
+            </div>
+        </header>
+
+        <section class="section" id="services">
+            <article class="card reveal">
+                <h2>Ce que je fais</h2>
+                <div class="cards-grid">
+                    <div class="service-card reveal">
+                        <h3>📹 Création vidéo</h3>
+                        <p>Montage, prise de vue et storytelling visuel pour des contenus immersifs.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <h3>🌐 Sites web</h3>
+                        <p>Création de sites en ligne modernes, clairs et adaptés aux indépendants.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <h3>🤖 Automatisation IA</h3>
+                        <p>Solutions intelligentes pour automatiser des tâches et gagner en productivité.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="section" id="banner">
+            <article class="card banner-card reveal">
+                <span class="banner-tag reveal">Une idée ? Un projet ?</span>
+                <h2 class="reveal">On échange, je conçois et je livre dans un flux continu.</h2>
+            <h2<p >Vos idées méritent de voir le jour dans les meilleures conditions et de la manière dont vous les imaginez.</p>
+                <div class="banner-photos reveal">
+                    <div class="banner-photo">
+                        <img src="Kagurabachi.jpg" alt="Photo 1" />
+                    </div>
+                    <div class="banner-photo">
+                        <img src="To be hero x.jpg" alt="Photo 2" />
+                    </div>
+                    <div class="banner-photo">
+                        <img src="JJK Hiromi.jpg" alt="Photo 3" />
+                    </div>
+                </div>
+             <h2<p>Explorez tous les horisons de votre projet, de la conception à la livraison, avec un accompagnement personnalisé et une expertise technique pour donner vie à vos idées les plus ambitieuses.</p>
+            </article>
+        </section>
+
+        <section class="section" id="about">
+            <article class="card reveal">
+                <h2>À propos</h2>
+                <p>Mon parcours est une histoire construite autour de la création et de la transformation.</p>
+                <ul>
+                    <li>Musique — écriture, production musicale er design sonore.</li>
+                    <li>Vidéo — Du moodboard au scénario, en passant par la prise de vue et le montage. </li>
+                    <li>Création — esthétique, direction artistique et détails expérimentaux.</li>
+                    <li>Optimisation de projets, outils de communication et automatisations IA.</li>
+                    <li>Envie d'innover — des projets, des expériences et des collaborations.</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="section" id="contact">
+            <article class="card reveal">
+                <h2>Contact</h2>
+                <p>Pour toute demande, écris directement à :</p>
+                <p><a href="mailto:Quincy.Bordey@gmail.com">Quincy.Bordey@gmail.com</a></p>
+                <p>Ou utilise la page de contact dédiée pour m’écrire directement depuis le site.</p>
+                <a class="button" href="contact.html">Page de contact</a>
+            </article>
+        </section>
+
+        <footer>
+            <p>Suivez-moi sur <a href="https://www.instagram.com/qubelevrai/" target="_blank" rel="noreferrer">@qubelevrai</a> — Pour collaborations : <a href="mailto:Quincy.Bordey@gmail.com">Quincy.Bordey@gmail.com</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2,
+        });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.reveal.visible').forEach(el => el.classList.add('visible'));
+        });
+    </script>
+</body>
+</html>
