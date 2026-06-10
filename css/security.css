@@ -1,0 +1,40 @@
+/* Honeypot anti-spam — totalement invisible (humains ne voient rien) */
+form { position: relative; }
+
+.hp-field,
+input.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  top: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  border: 0 !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  display: block !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+}
+
+.hp-field label {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.hp-field input,
+input.hp-field {
+  width: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+}

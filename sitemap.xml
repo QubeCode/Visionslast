@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>/index.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>/contact.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>/rejoindre.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>/mentions-legales.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>/confidentialite.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>/cgu.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>/cookies.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+</urlset>
